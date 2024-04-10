@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  label:
+    app: demo-project
+  name: demo-project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-project
+  template:
+    metadata:
+      labels:
+        app: demo-project
+    spec:
+      containers:
+      - name: demo-project
+        image: hrs4real/demo-project:v1
+        ports:
+        - containerPort: 80
+        imagePullPolicy: Always
