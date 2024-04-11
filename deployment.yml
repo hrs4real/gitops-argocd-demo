@@ -5,7 +5,7 @@ metadata:
     app: demo-project
   name: demo-project-deployment
 spec:
-  replicas: 1
+  replicas: 4
   selector:
     matchLabels:
       app: demo-project
