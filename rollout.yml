@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: demo-project-rollout
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: demo-project
+  template:
+    metadata:
+      labels:
+        app: demo-project
+    spec:
+      containers:
+      - name: demo-project
+        image: hrs4real/demo-project:v1
+        ports:
+        - containerPort: 80
+        imagePullPolicy: Always
+  strategy:
+    canary:
+      steps:
+      - setWeight: 20
+        pause:
+          duration: 30s
+      - setWeight: 40
+        pause:
+          duration: 30s
+      - setWeight: 60
+        pause:
+          duration: 30s
+      - setWeight: 80
+        pause:
+          duration: 30s
+      - setWeight: 100
+  minReadySeconds: 5
+  revisionHistoryLimit: 10
